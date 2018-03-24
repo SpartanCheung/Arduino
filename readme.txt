@@ -2,4 +2,7 @@
 All changes will be documented by git.
 Developer: Spartan Cheung
 email: zd853768760@gmail.com
+<<<<<<< HEAD
 This is a branch on master.
+=======
+>>>>>>> spartan
