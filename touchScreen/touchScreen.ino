@@ -5,7 +5,8 @@
 #define xNegPin 10
 #define yNegPin 9
 
-
+//uint8_t xReadPin = A4;
+//int xPosPin = 8;
 int caliRefAnalog[8] = { 73, 98, 965, 90, 965, 915, 75, 903 }; // 1x 1y 2x 2y 3x 3y 4x 4y --analogRead Values
 float caliRefReal[8] = { 0.0, 0.0, 337.5, 0.0, 337.5, 270.5, 0.0, 270.5 }; // 1x 1y 2x 2y 3x 3y 4x 4y --Real location
 int location[2];
@@ -41,7 +42,7 @@ void loop()
 	digitalWrite(yNegPin, LOW);
 	delay(5);
 	location[1] = analogRead(yReadPin);
-	delay(5);
+	delay(5); 
 	pinMode(yPosPin, INPUT);
 	pinMode(yNegPin, INPUT);
 
@@ -56,13 +57,13 @@ void loop()
 }
 
 
- void locateTouch(const int* loc, float * realLoc) {
+ void locateTouch(const int * loc, float * realLoc) {
 	float location1[2];
 	float location2[2];
-	location1[0] = caliRefReal[0] + (loc[0] - caliRefAnalog[0]) * ((caliRefReal[5] - caliRefReal[0]) / (caliRefAnalog[5] - caliRefAnalog[0]));
-	location1[1] = caliRefReal[1] + (loc[1] - caliRefAnalog[1]) * ((caliRefReal[6] - caliRefReal[1]) / (caliRefAnalog[6] - caliRefAnalog[1]));
-	location2[0] = caliRefReal[2] + (loc[0] - caliRefAnalog[2]) * ((caliRefReal[7] - caliRefReal[2]) / (caliRefAnalog[7] - caliRefAnalog[2]));
-	location2[1] = caliRefReal[3] + (loc[1] - caliRefAnalog[3]) * ((caliRefReal[8] - caliRefReal[3]) / (caliRefAnalog[8] - caliRefAnalog[3]));
-	realLoc[0] = (location1[0] + location2[0]);
-	realLoc[1] = (location1[1] + location2[1]);
+	location1[0] = caliRefReal[0] + (*loc - caliRefAnalog[0]) * ((caliRefReal[4] - caliRefReal[0]) / (caliRefAnalog[4] - caliRefAnalog[0]));
+	location1[1] = caliRefReal[1] + (*(loc+1) - caliRefAnalog[1]) * ((caliRefReal[5] - caliRefReal[1]) / (caliRefAnalog[5] - caliRefAnalog[1]));
+	location2[0] = caliRefReal[2] + (*loc - caliRefAnalog[2]) * ((caliRefReal[6] - caliRefReal[2]) / (caliRefAnalog[6] - caliRefAnalog[2]));
+	location2[1] = caliRefReal[3] + (*(loc+1) - caliRefAnalog[3]) * ((caliRefReal[7] - caliRefReal[3]) / (caliRefAnalog[7] - caliRefAnalog[3]));
+	*realLoc = (location1[0] + location2[0])/2;
+	*(realLoc+1) = (location1[1] + location2[1])/2;
 }

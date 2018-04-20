@@ -24,8 +24,8 @@ void loop()
 		toTheAng(118, 1, yMotor, 10);
 		returnOrigin = true;
 	}
-	toTheAng(110, 0, xMotor,10);
-	toTheAng(150, 1, yMotor,10);
+	toTheAng(114, 0, xMotor,10);
+	toTheAng(118, 1, yMotor,10);
 }
 
 

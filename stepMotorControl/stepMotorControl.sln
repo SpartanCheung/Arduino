@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shipMotorControl", "..\shipMotorControl\shipMotorControl.vcxproj", "{2A6B2C10-68BE-4856-8ED9-26BDDF097854}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test_for_touchscreen", "..\test_for_touchscreen\test_for_touchscreen.vcxproj", "{4FACB4B2-18DE-4277-941B-9CFA6EC7A2C5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ball_plate_test", "..\ball_plate_test\ball_plate_test.vcxproj", "{C5F80730-F44F-4478-BDAE-6634EFC2CA88}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "shipMotorCali", "..\shipMotorCali\shipMotorCali.vcxproj", "{302468A0-D403-4E91-86E7-21D8E1695EDC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2A6B2C10-68BE-4856-8ED9-26BDDF097854}.Debug|x86.ActiveCfg = Debug|Win32
+		{2A6B2C10-68BE-4856-8ED9-26BDDF097854}.Debug|x86.Build.0 = Debug|Win32
+		{2A6B2C10-68BE-4856-8ED9-26BDDF097854}.Release|x86.ActiveCfg = Release|Win32
+		{2A6B2C10-68BE-4856-8ED9-26BDDF097854}.Release|x86.Build.0 = Release|Win32
+		{4FACB4B2-18DE-4277-941B-9CFA6EC7A2C5}.Debug|x86.ActiveCfg = Debug|Win32
+		{4FACB4B2-18DE-4277-941B-9CFA6EC7A2C5}.Debug|x86.Build.0 = Debug|Win32
+		{4FACB4B2-18DE-4277-941B-9CFA6EC7A2C5}.Release|x86.ActiveCfg = Release|Win32
+		{4FACB4B2-18DE-4277-941B-9CFA6EC7A2C5}.Release|x86.Build.0 = Release|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.ActiveCfg = Debug|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Debug|x86.Build.0 = Debug|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.ActiveCfg = Release|Win32
+		{C5F80730-F44F-4478-BDAE-6634EFC2CA88}.Release|x86.Build.0 = Release|Win32
+		{302468A0-D403-4E91-86E7-21D8E1695EDC}.Debug|x86.ActiveCfg = Debug|Win32
+		{302468A0-D403-4E91-86E7-21D8E1695EDC}.Debug|x86.Build.0 = Debug|Win32
+		{302468A0-D403-4E91-86E7-21D8E1695EDC}.Release|x86.ActiveCfg = Release|Win32
+		{302468A0-D403-4E91-86E7-21D8E1695EDC}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AA6266AE-324F-439A-92BF-9C3430DE9521}
+	EndGlobalSection
+EndGlobal
