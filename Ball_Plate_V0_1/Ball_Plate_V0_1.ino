@@ -21,10 +21,10 @@ touchScreen myTouchScreen(11, 9, 10, 8, A4, A5); // x+, x-, y+, y-, xR, yR
 
 
 /*======Declaring the pid relative variables */
-double kp[2] = { 0.4,1};
-double ki[2] = { 0.0015,0.0015 };
-double kd[2] = { 10,10};
-double ka[2] = { 0.0,0.0 };
+double kp[2] = { 0.5,1.4};
+double ki[2] = { 0.025,0.025 };
+double kd[2] = { 9.75, 19.85 };
+double ka[2] = { 0.001,0.001 };
 double error_current[2]		= {	0.0,0.0	};	// now(k)-goal(k)		{x,y}
 double error_last[2]		= { 0.0,0.0 };	
 double error_last_last[2]	= { 0.0,0.0 };	
@@ -36,10 +36,10 @@ double iTerm[2] = { 0,0 };
 //double aTerm[2] = { 0,0 };
 double pidOutput[2] = { 0,0 };
 int outPut[2] = {110,110};
-int Goal[2] = { 150, 40}; 
+int Goal[2] = { 150,100 }; 
 int compPeriod = 10;
-
-
+int time = 0;
+int timeDis = 0;
 /*-----------------------------------------------------------------------------------------------------
 main Arduino Function*/
 
@@ -60,15 +60,19 @@ void loop()
 		toTheAng(118, 1, yMotor, 10);
 		returnOrigin = true;
 	} else {
-		myTouchScreen.capturePosVol();
-		myTouchScreen.calculatePos();
-		errorCal();
-		for (int i = 0; i < 2; i++) {
-			pidCal(i);
-		}
-		outPutTrans();
-		toTheAng(outPut[0], 0, xMotor);
-		toTheAng(outPut[1], 1, yMotor);
+			timeDis = millis() - time;
+			time = millis();
+			if (timeDis>=compPeriod){
+				myTouchScreen.capturePosVol();
+				myTouchScreen.calculatePos();
+				errorCal();
+				for (int i = 0; i < 2; i++) {
+					pidCal(i);
+				}
+				outPutTrans();
+				toTheAng(outPut[0], 0, xMotor);
+				toTheAng(outPut[1], 1, yMotor);
+			}	
 	}
 }
 
@@ -100,7 +104,7 @@ void toTheAng(int goalAng, int index, Servo & myServo, int interval = 12) {
 			currentAng[index] = myServo.read();
 		}
 	}
-	Serial.println("done");
+	//Serial.println("done");
 }
 
 
@@ -116,6 +120,8 @@ void errorCal() {
 		error_current[i] = myTouchScreen.position[i] - Goal[i];	
 	}
 	Serial.println("Calculation done");
+	Serial.print(error_current[0]);
+	Serial.print("   ");
 	Serial.println(error_current[1]);
 }
 
@@ -131,10 +137,10 @@ void outPutTrans() {
 	xPlateAng = plateThresh(xPlateAng);
 	yPlateAng = plateThresh(yPlateAng);
 
-	outPut[0] = (int)	 2.0184 * (xPlateAng) + 106.28;
-	outPut[1] = (int)	-1.8126 * (yPlateAng) + 112.95;
-	Serial.println(outPut[0]);
-	Serial.println(outPut[1]);
+	outPut[0] = (int)	 2.0184 * xPlateAng + 106.28;
+	outPut[1] = (int)	-1.9703 * yPlateAng + 113.36;
+	//Serial.println(outPut[0]);
+	//Serial.println(outPut[1]);
 }
 
 
@@ -148,7 +154,7 @@ void pidCal(int index) {
 	double pTerm = kp[i] * error_current[i];
 	iTerm[i] += (ki[i] * error_current[i]);
 	double deltaErr = error_current[i] - error_last[i];
-	double dTerm = kd[i] * (((5 * deltaErr) + (3 * deltaErr_last[i]) + (2 * deltaErr_last_last[i])) / 10.0);
+	double dTerm = kd[i] * (((5 * deltaErr) + (3 * deltaErr_last[i]) + (1 * deltaErr_last_last[i])) / 10.0);
 	double aTerm = ka[i] * (((deltaErr - deltaErr_last[i]) + (deltaErr_last[i] - deltaErr_last_last[i])) / 2.0);
 	pidOutput[i] = pTerm + iTerm[i] + dTerm + aTerm;
 	deltaErr_last_last[i] = deltaErr_last[i];
