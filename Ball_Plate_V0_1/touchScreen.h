@@ -15,6 +15,8 @@ public:
 	uint8_t pins[6]; // pins for touchscreen
 	float position[2];
 	boolean calibrationFlag = false;
+	int ballStatus = 0; // 0-in Scope, 1 - out of left edge, 2 - out of right edge, 3 - out of bottom edge, 4 - out of top edge
+	int edges[4] = {20,320,20,250}; // four user given edge value in the preset coordinate
 
 	// functions
 	void capturePosVol();

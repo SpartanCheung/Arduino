@@ -70,9 +70,9 @@ void touchScreen::capturePosVol() {
 	pinMode(pins[1], OUTPUT);
 	digitalWrite(pins[0], HIGH);
 	digitalWrite(pins[1], LOW);
-	delay(5);
+	delay(4);
 	posVol[0] = analogRead(pins[4]);
-	delay(5);
+	delay(4);
 	pinMode(pins[0], INPUT);
 	pinMode(pins[1], INPUT);
 
@@ -81,9 +81,9 @@ void touchScreen::capturePosVol() {
 	pinMode(pins[3], OUTPUT);
 	digitalWrite(pins[2], HIGH);
 	digitalWrite(pins[3], LOW);
-	delay(5);
+	delay(4);
 	posVol[1] = analogRead(pins[5]);
-	delay(5);
+	delay(4);
 	pinMode(pins[2], INPUT);
 	pinMode(pins[3], INPUT);
 }
@@ -91,6 +91,7 @@ void touchScreen::capturePosVol() {
 void touchScreen::calculatePos() {
 	float location1[2];
 	float location2[2];
+	 // ensure the ball went back in the scope
 	//location1[0] = posRef[0] + (posVol[0] - posVolRef[0]) * ((posRef[4] - posRef[0]) / (posVolRef[4] - posVolRef[0]));
 	//location1[1] = posRef[1] + (posVol[1] - posVolRef[1]) * ((posRef[5] - posRef[1]) / (posVolRef[5] - posVolRef[1]));
 	//location2[0] = posRef[2] + (posVol[0] - posVolRef[2]) * ((posRef[6] - posRef[2]) / (posVolRef[6] - posVolRef[2]));
@@ -99,9 +100,24 @@ void touchScreen::calculatePos() {
 	location1[1] = map(posVol[1], posVolRef[1], posVolRef[5], posRef[1], posRef[5]);
 	location2[0] = map(posVol[0], posVolRef[2], posVolRef[6], posRef[2], posRef[6]);
 	location2[1] = map(posVol[1], posVolRef[3], posVolRef[7], posRef[3], posRef[7]);
-	
+
 	position[0] = (location1[0] + location2[0]) / 2;
 	position[1] = (location1[1] + location2[1]) / 2;
+	if (position[0] < edges[0]) {
+		ballStatus = 1;
+	}
+	else if (position[0] > edges[1]) {
+		ballStatus = 2;
+	}
+	else if (position[1] < edges[2]) {
+		ballStatus = 3;
+	}
+	else if (position[1] > edges[3]) {
+		ballStatus = 4;
+	}
+	else {
+		ballStatus = 0;
+	}
 }
 
 // 求numOfPoints测量坐标电压值的平均坐标电压
